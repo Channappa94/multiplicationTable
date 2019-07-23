@@ -9,29 +9,47 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var numbers = ["1", "2", "3", "4", "5", "6", "8", "9", "10"]
+    
+    
+    @IBOutlet weak var tableVie: UITableView!
+    @IBOutlet weak var myLabel: UILabel!
+    var num = 0
+    
+    var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+   
     @IBOutlet weak var sliderValue: UISlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+       
     }
 
-    @IBAction func sliderAction(slider: UISlider) {
-        print("The value of the slider \(slider.value)")
-        
-        
+   
+    @IBAction func slider(_ sender: UISlider) {
+    num = Int(sender.value)
+    myLabel.text = ("number in slider is \(num)")
+        tableVie.reloadData()
     }
+   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return numbers.count
-        
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cellIdentifer = "Cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifer, for: indexPath)
-        cell.textLabel?.text = numbers[indexPath.row]
-        return cell
+       
+ 
+        var result = num * Int(numbers[indexPath.row])!
+        var set = ("\(numbers[indexPath.row]) * \(num)  = \(result)")
+        print(result)
+        cell.textLabel?.text = set
         
+        
+        return cell
+     
     }
     
     
